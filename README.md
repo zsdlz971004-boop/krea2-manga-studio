@@ -8,7 +8,7 @@
 >    - **画风核心突破（找回真正的手绘线稿感 + 必留 `Imigimuru` 前缀）**：
 >      - 经同种子 A/B 实证：60 词丸笔技法描述决定 85% 的手绘黑白钢笔质感，而开头的 **`in the distinctive art style of Imigimuru (illustrator of Makeine: Too Many Losing Heroines and Lycoris Recoil)`** 决定剩余 15% 的**浅发色 100% 纯白留白不涂灰、败犬标志性圆润脸型与发饰锚定稳定性**，二者缺一不可；
 >      - 彻底弃用 `cel-shaded`，改用**「纤巧手绘丸笔与铅笔速写墨线（`slender organic fine-nib Maru-pen and pencil-sketch ink lines on pure white paper`）+ 极细手绘折痕短排线（`ultra-fine light sketchy pen strokes along fabric creases and edges`）+ 75% 纯白不涂灰纸面留白（`mostly unshaded pure white surfaces`）」**。
-> 3. **算力保护铁律**：连续生图期间保持模型常驻显存（`--gpu ""` 复用当前已连接 GPU，第 2 批起 0 秒加载）；一旦阶段测试完成或用户表示收尾，立即备份新训权重至 Google Drive 并运行 `python3 /Users/zhangshuai/2/生图/scripts/colab_instant_gen.py --shutdown-only` 退租显卡（0 额度消耗）。
+> 3. **算力保护与目录句柄保护铁律**：连续生图期间保持模型常驻显存（`--gpu ""` 复用当前已连接 GPU，第 2 批起 0 秒加载）；一旦阶段测试完成或用户表示收尾，立即备份新训权重至 Google Drive、将 `outputs/` 下已完成角色的过程散图归档移入 `archive/outputs_history/<角色名>/` 子目录（保持 `outputs/` 第一层平铺文件数不超过 50 个，防止 macOS `kqueue` 文件夹监控耗尽 `10240` 句柄上限），并运行 `python3 /Users/zhangshuai/2/生图/scripts/colab_instant_gen.py --shutdown-only` 退租显卡（0 额度消耗）。
 
 ---
 
@@ -113,15 +113,25 @@ color, polychrome, 3d render, CGI, photorealistic metallic reflection, glossy 3d
     4. **`jn_police`（「干练女刑警」纯白卷袖警用衬衫 + 中灰领带 + 黑色腋下双肩战术枪套背带 + 黑色高腰制服长裤 + 作战靴）**
   - **Q版触发词**：**`jn_chibi`**（2头身超萌Q版）
 
+- **第四女主 / 四老婆：柳依依（`liu_yiyi`）—— 175cm 高挑反差萌宅女电竞少女 · 36 张六维解耦训练集已就绪（[datasets/liu_yiyi_lora_v1/](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/datasets/liu_yiyi_lora_v1)）**：
+  - **核心外貌触发词（`liu_yiyi`）**：175cm 高挑却丰满傲人的沙漏身材（队伍胸围之最）、乌黑亮泽高马尾配头顶呆毛（`sprouted ahoge`）、脸侧修饰鬓发、微分开刘海、头戴/挂颈纯白无阴影猫耳头戴式耳机（`pure white cat-ear over-ear headphones`），兼具丰富鲜活的八奈见式漫画喜剧颜艺（弯月闭眼爆笑 `^▽^`、露齿四方嘴坏笑 `^皿^`、鼓腮帮子吃醋 `)-(`、十字星星眼 `✦_✦`、空心白圈眼 `〇_〇`）。
+  - **4 套专属极寒外勤 & 避难所室内服装触发词（严格契合零下六七十度极寒末世设定）**：
+    1. **`lyy_parka`（【极寒外勤主锚点】纯白重型大毛领羽绒派克服 + 中灰高领拉链抓绒内胆 + 纯黑加厚雪地长裤 + 末世物资大背包 + 猫猫耳机当防寒耳罩）**
+    2. **`lyy_mount`（【极寒外勤登山装】中灰羊羔毛翻领重型登山厚大衣 + 厚白针织围巾 + 白缆绳毛衣 + 纯黑加厚雪地长裤 + 雪地靴）**
+    3. **`lyy_hoodie`（【避难所居家电竞装】中灰半拉链抓绒卫衣敞怀 + 紧身纯白竖罗纹高领毛衣凸显傲人胸围 + 深色百褶短裙 + 纯黑厚保暖连裤袜）**
+    4. **`lyy_suspender`（【避难所室内修身装】紧身纯白竖罗纹高领针织衫凸显丰满曲线 + 中灰高腰交叉背带百褶裙 + 纯黑厚保暖连裤袜）**
+  - **三视图触发词**：**`lyy_turnaround`**（正+侧+背全身三视图设定集）
+
 ---
 
 ## 📂 五、 本文件夹（`/Users/zhangshuai/2/生图`）目录结构导航
 
 - [README.md](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/README.md) / [AGENTS.md](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/AGENTS.md)：本无缝接管总册。
-- [scripts/colab_instant_gen.py](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/scripts/colab_instant_gen.py)：**核心一键生图与断电控制脚本**（默认复用当前已连接 GPU，已修复 Chrome CDP `type == "page"` 过滤与显存栈帧清理）。
+- [scripts/colab_instant_gen.py](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/scripts/colab_instant_gen.py)：**核心一键生图与断电控制脚本**（默认锁定 `H100`，已升级原生 `setRuntime` API 与 `start_new_session=True` 后台守护）。
 - [scripts/resident_engine.py](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/scripts/resident_engine.py)：**云端显存常驻秒出 + 闲置自动断电引擎**（支持 `lora_name:weight` 动态权重解析、多角色触发词自动映射与 `sys.last_traceback = None` 显存彻底释放）。
 - [scripts/train_su_qingge_lora.py](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/scripts/train_su_qingge_lora.py) / [scripts/train_he_lingyi_lora.py](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/scripts/train_he_lingyi_lora.py) / [scripts/train_jiang_nan_lora.py](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/scripts/train_jiang_nan_lora.py)：**角色 LoRA（`Krea-2-Raw` 1000 步）NVMe 直训与 8 图多维解耦自动验收脚本**（内置 `gc.get_objects()` 父进程 CUDA 显存彻底清零机制，防止 40GB A100 子进程 OOM）。
 - [datasets/su_qingge_lora_v2/](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/datasets/su_qingge_lora_v2)：**苏清歌 `su_qingge_lora_v2` 36 张六维解耦训练集与 `outfit_presets.json`**。
 - [datasets/he_lingyi_lora_v1/](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/datasets/he_lingyi_lora_v1)：**贺令仪 `he_lingyi_lora_v1` 36 张六维解耦训练集与 `outfit_presets.json`**。
 - [datasets/jiang_nan_lora_v1/](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/datasets/jiang_nan_lora_v1)：**姜楠 `jiang_nan_lora_v1` 36 张六维解耦训练集与 `outfit_presets.json`**。
+- [datasets/liu_yiyi_lora_v1/](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/datasets/liu_yiyi_lora_v1)：**柳依依 `liu_yiyi_lora_v1` 36 张六维解耦训练集（32 张全角度单人立绘/三视图 + 4 张精选八奈见风颜艺/分镜）与 `outfit_presets.json`**。
 - [archive/krea2_handdrawn_lineart_report.md](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/archive/krea2_handdrawn_lineart_report.md)：V4 纯黑白「真正的手绘线稿感与纤巧笔触」迭代总报告。

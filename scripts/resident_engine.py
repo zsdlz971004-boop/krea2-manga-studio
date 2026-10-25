@@ -135,7 +135,9 @@ def generate_instant(prompts, steps=8, cfg=1.5, width=896, height=1200, seed=202
                 }
             }
             if lora_name:
-                if "jiang_nan" in lora_name:
+                if "liu_yiyi" in lora_name:
+                    proc_cfg["trigger_word"] = "liu_yiyi"
+                elif "jiang_nan" in lora_name:
                     proc_cfg["trigger_word"] = "jiang_nan"
                 elif "he_lingyi" in lora_name:
                     proc_cfg["trigger_word"] = "he_lingyi"
