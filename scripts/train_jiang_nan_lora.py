@@ -4,13 +4,13 @@ import base64, json, os, sys, time, urllib.request
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, SCRIPT_DIR)
 from cdp_helper import cdp_eval
-from colab_instant_gen import ensure_chrome_cdp
+from colab_instant_gen import ensure_chrome_cdp, auto_approve_drive_oauth
 
 ARTIFACT_DIR = "/Users/zhangshuai/.gemini/antigravity/brain/72aabc69-f824-4820-babe-1f34f53cd202"
 OUT_DIR = os.path.join(os.path.dirname(SCRIPT_DIR), "outputs")
 
 V4_PREFIX = "in the distinctive art style of Imigimuru (illustrator of Makeine: Too Many Losing Heroines and Lycoris Recoil), delicate hand-drawn light novel lineart illustration, slender organic fine-nib Maru-pen and pencil-sketch ink lines on pure white paper, grayscale, no color, subtle natural hand-drawn line weight with loose wispy hair strands, ultra-fine light sketchy pen strokes along fabric creases and edges, delicate hand-drawn diagonal blush lines on softly rounded lower cheeks, expressive low-set almond eyes with thick upper lashes, mostly unshaded pure white surfaces with soft flat light-grey manga screentone accents only on secondary cloth, no digital gradient, no 3d shading."
-CHAR_CORE = "jiang_nan, 1girl, tall athletic police detective girl, sleek chin-length layered jet-black short bob hair with glossy white ink highlights and cheek-framing short sidelocks, lightly parted bangs covering her forehead down to her eyebrows, single clean white crossed X-shaped hairpin clip on left side above ear, sharp heroic eyebrows, expressive almond eyes"
+CHAR_REST = "tall athletic police detective girl, sleek chin-length layered jet-black short bob hair with glossy white ink highlights and cheek-framing short sidelocks, lightly parted bangs covering her forehead down to her eyebrows, single clean white crossed X-shaped hairpin clip on left side above ear, sharp heroic eyebrows, expressive almond eyes"
 
 VEST_BLOCK = "jn_vest, wearing unshaded pure white tactical utility vest with front pouches and shoulder straps over fitted flat dark-grey screentone collared long-sleeve combat shirt, small metallic police whistle hanging on a black lanyard cord around neck, solid black fitted tactical pants with right thigh gun holster and waist belt, lace-up combat boots"
 SWEATER_BLOCK = "jn_sweater, wearing cozy fitted unshaded pure white off-shoulder vertical-ribbed knit sweater, high-waisted flat medium-grey screentone wrap mini skirt with wide waist belt and rectangular buckle, solid black thermal tights, sleek black ankle boots"
@@ -19,21 +19,21 @@ POLICE_BLOCK = "jn_police, wearing fitted unshaded pure white collared police sh
 
 TEST_PROMPTS = [
     # 0: Tactical Vest - Shelter command room strategic table briefing (open mouth)
-    f"{V4_PREFIX} {CHAR_CORE}, {VEST_BLOCK}, solo, medium-full shot leaning forward with both hands pressed firmly on a wooden table in a shelter command room background with a pinned wall map drawn in clean black-and-white manga lineart, commanding expression with an open talking mouth.",
-    # 1: Off-shoulder Sweater - Shy blushing standing hands in skirt pockets (slightly open mouth)
-    f"{V4_PREFIX} {CHAR_CORE}, {SWEATER_BLOCK}, solo, medium-full shot on a stark pure white background, shy embarrassed blush on her cheeks and ears with a flustered open talking mouth, both hands tucked shyly into her skirt pockets.",
-    # 2: Tactical Vest - Snowy apocalypse corridor patrol (open calling mouth)
-    f"{V4_PREFIX} {CHAR_CORE}, {VEST_BLOCK}, solo, medium-full shot in a snowy apocalypse concrete corridor background with frosted window frames drawn in clean black-and-white manga lineart, windblown short hair, calling out with a wide-open mouth, hands tucked into trouser pockets.",
-    # 3: Off-shoulder Sweater - Cozy shelter dining room warm laugh (open mouth)
-    f"{V4_PREFIX} {CHAR_CORE}, {SWEATER_BLOCK}, solo, medium shot sitting at a wooden table in a cozy shelter dining room background with a hanging lamp drawn in clean black-and-white manga lineart, resting folded arms on the table, laughing warmly with a cheerful open mouth.",
-    # 4: Sport Tank Top - Shelter gym training room refreshing smile (open mouth)
-    f"{V4_PREFIX} {CHAR_CORE}, {SPORT_BLOCK}, solo, medium-full shot in a shelter gym training room background with workout equipment and wall mirrors drawn in clean black-and-white manga lineart, hands tucked in track pant pockets, smiling brightly with a cheerful open mouth.",
+    f"{V4_PREFIX} jiang_nan, 1girl, commanding tactical expression with an open talking mouth and deeply furrowed heroic eyebrows, leaning forward with both hands pressed firmly on a wooden table, {CHAR_REST}, {VEST_BLOCK}, solo, medium-full shot in a shelter command room background with a pinned wall map drawn in clean black-and-white manga lineart.",
+    # 1: Off-shoulder Sweater - Shy blushing standing hands in skirt pockets (closed pouting mouth)
+    f"{V4_PREFIX} jiang_nan, 1girl, shy embarrassed blush on her cheeks and ears with a small shy closed pouting mouth, both hands tucked shyly into her skirt pockets, {CHAR_REST}, {SWEATER_BLOCK}, solo, medium-full shot on a stark pure white background.",
+    # 2: Tactical Vest - Snowy apocalypse corridor patrol (wide-open calling mouth)
+    f"{V4_PREFIX} jiang_nan, 1girl, alert urgent expression calling out with a wide-open mouth, windblown short hair, hands tucked into trouser pockets, {CHAR_REST}, {VEST_BLOCK}, solo, medium-full shot in a snowy apocalypse concrete corridor background with frosted window frames drawn in clean black-and-white manga lineart.",
+    # 3: Off-shoulder Sweater - Cozy shelter dining room warm laugh (wide-open mouth)
+    f"{V4_PREFIX} jiang_nan, 1girl, laughing brightly with a cheerful wide-open mouth and curved happy almond eyes, sitting at a wooden table with a warm mug on the table and hands tucked into her skirt pockets, {CHAR_REST}, {SWEATER_BLOCK}, solo, medium-full shot in a cozy shelter dining room background drawn in clean black-and-white manga lineart.",
+    # 4: Sport Tank Top - Shelter gym training room refreshing laugh (wide-open mouth)
+    f"{V4_PREFIX} jiang_nan, 1girl, laughing brightly with a cheerful wide-open mouth and curved happy almond eyes, hands tucked in track pant pockets, {CHAR_REST}, {SPORT_BLOCK}, solo, medium-full shot in a shelter gym training room background with dumbbells rack and punching bag drawn in clean black-and-white manga lineart.",
     # 5: Police Shirt & Shoulder Holster - Low-angle authoritative gaze (closed mouth)
-    f"{V4_PREFIX} {CHAR_CORE}, {POLICE_BLOCK}, solo, dramatic low-angle medium-full shot looking up at her on a stark pure white background, arms crossed over her chest, looking down at the viewer with a cool authoritative gaze and closed mouth.",
+    f"{V4_PREFIX} jiang_nan, 1girl, cool authoritative gaze with closed mouth looking down at the viewer, arms crossed over her chest, {CHAR_REST}, {POLICE_BLOCK}, solo, dramatic low-angle medium-full shot looking up at her on a stark pure white background.",
     # 6: Police Shirt & Shoulder Holster - Shelter supply warehouse inspection (closed mouth)
-    f"{V4_PREFIX} {CHAR_CORE}, {POLICE_BLOCK}, solo, medium-full shot in a shelter supply warehouse background with stacked wooden crates and metal shelves drawn in clean black-and-white manga lineart, arms crossed over her chest, calm analytical expression with closed mouth.",
+    f"{V4_PREFIX} jiang_nan, 1girl, calm analytical expression with closed mouth, arms crossed over her chest, {CHAR_REST}, {POLICE_BLOCK}, solo, medium-full shot in a shelter supply warehouse background with stacked wooden crates and metal shelves drawn in clean black-and-white manga lineart.",
     # 7: 2-heads-tall Chibi mode in Tactical Vest
-    f"{V4_PREFIX} {CHAR_CORE}, {VEST_BLOCK}, jn_chibi, chibi, super deformed cute 2-heads-tall full-body chibi character illustration on a stark pure white background, solo, standing with both hands on her hips calling out with a cute wide-open mouth."
+    f"{V4_PREFIX} jiang_nan, 1girl, energetic chibi police commander calling out with a cute wide-open mouth, standing with both hands on her hips, {CHAR_REST}, {VEST_BLOCK}, jn_chibi, chibi, super deformed cute 2-heads-tall full-body chibi character illustration on a stark pure white background, solo."
 ]
 
 def main():
@@ -45,6 +45,9 @@ def main():
 
     cell_code = f"""import os, sys, time, shutil, zipfile, subprocess, yaml, gc, importlib, builtins
 print("MARKER:" + "{marker}", flush=True)
+if not os.path.exists("/content/drive/MyDrive"):
+    from google.colab import drive
+    drive.mount("/content/drive")
 print("DRIVE_MOUNTED:" + "{marker}", flush=True)
 
 # Free any resident VRAM model and kill any leftover run.py subprocess before starting!
@@ -216,6 +219,7 @@ if os.path.exists("/content/drive/MyDrive"):
     drive_lora_dir = f"/content/drive/MyDrive/AI_Manga_Studio/loras/{{LORA_NAME}}"
     os.makedirs(drive_lora_dir, exist_ok=True)
     os.system(f"cp -r {{local_lora_dir}}/*.safetensors {{drive_lora_dir}}/")
+    print(f"☁️ Backed up {{LORA_NAME}} to Google Drive: {{os.listdir(drive_lora_dir)}}", flush=True)
 
 print("🎉 Training complete! Running 8-image Jiang Nan LoRA v1 Verification Batch...", flush=True)
 gc.collect()
@@ -226,13 +230,13 @@ default_neg_bw = "color, polychrome, 3d render, CGI, photorealistic metallic ref
 
 resident_engine.generate_instant(
     prompts={json.dumps(TEST_PROMPTS, ensure_ascii=False)},
-    steps=14,
-    cfg=1.60,
+    steps=15,
+    cfg=1.65,
     width=1024,
     height=1376,
     seed=889955,
     prefix="jiang_nan_lora_v1_test",
-    lora_name=f"{{LORA_NAME}}:0.95",
+    lora_name=f"{{LORA_NAME}}:0.85",
     neg=default_neg_bw
 )
 """
@@ -263,14 +267,7 @@ resident_engine.generate_instant(
     }})()
     """)
     print(f"🚀 Launched NVMe-direct train_jiang_nan_lora_v1 on Colab (marker={marker})!", flush=True)
-    time.sleep(2)
-    cdp_eval(ws, """
-    (() => {
-      const btns = Array.from(document.querySelectorAll("mwc-button, md-text-button, md-filled-button, button"));
-      const target = btns.find(b => /仍要运行|仍然运行/.test((b.innerText || "").trim()));
-      if (target) target.click();
-    })()
-    """)
+    auto_approve_drive_oauth(marker)
 
     os.makedirs(OUT_DIR, exist_ok=True)
     os.makedirs(ARTIFACT_DIR, exist_ok=True)
