@@ -113,14 +113,20 @@ color, polychrome, 3d render, CGI, photorealistic metallic reflection, glossy 3d
     4. **`jn_police`（「干练女刑警」纯白卷袖警用衬衫 + 中灰领带 + 黑色腋下双肩战术枪套背带 + 黑色高腰制服长裤 + 作战靴）**
   - **Q版触发词**：**`jn_chibi`**（2头身超萌Q版）
 
-- **第四女主 / 四老婆：柳依依（`liu_yiyi`）—— 175cm 高挑反差萌宅女电竞少女 · 36 张六维解耦训练集已就绪（[datasets/liu_yiyi_lora_v1/](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/datasets/liu_yiyi_lora_v1)）**：
-  - **核心外貌触发词（`liu_yiyi`）**：175cm 高挑却丰满傲人的沙漏身材（队伍胸围之最）、乌黑亮泽高马尾配头顶呆毛（`sprouted ahoge`）、脸侧修饰鬓发、微分开刘海、头戴/挂颈纯白无阴影猫耳头戴式耳机（`pure white cat-ear over-ear headphones`），兼具丰富鲜活的八奈见式漫画喜剧颜艺（弯月闭眼爆笑 `^▽^`、露齿四方嘴坏笑 `^皿^`、鼓腮帮子吃醋 `)-(`、十字星星眼 `✦_✦`、空心白圈眼 `〇_〇`）。
-  - **4 套专属极寒外勤 & 避难所室内服装触发词（严格契合零下六七十度极寒末世设定）**：
-    1. **`lyy_parka`（【极寒外勤主锚点】纯白重型大毛领羽绒派克服 + 中灰高领拉链抓绒内胆 + 纯黑加厚雪地长裤 + 末世物资大背包 + 猫猫耳机当防寒耳罩）**
-    2. **`lyy_mount`（【极寒外勤登山装】中灰羊羔毛翻领重型登山厚大衣 + 厚白针织围巾 + 白缆绳毛衣 + 纯黑加厚雪地长裤 + 雪地靴）**
-    3. **`lyy_hoodie`（【避难所居家电竞装】中灰半拉链抓绒卫衣敞怀 + 紧身纯白竖罗纹高领毛衣凸显傲人胸围 + 深色百褶短裙 + 纯黑厚保暖连裤袜）**
-    4. **`lyy_suspender`（【避难所室内修身装】紧身纯白竖罗纹高领针织衫凸显丰满曲线 + 中灰高腰交叉背带百褶裙 + 纯黑厚保暖连裤袜）**
-  - **三视图触发词**：**`lyy_turnaround`**（正+侧+背全身三视图设定集）
+### 4. 四老婆（高挑反差萌宅女电竞少女）· 柳依依（`liu_yiyi_lora_v1` · 36 张六维解耦版）
+- **云端权重路径**：`/content/drive/MyDrive/AI_Manga_Studio/loras/liu_yiyi_lora_v1/liu_yiyi_lora_v1.safetensors`（同时已映射别名 `liu_yiyi_lora`）
+- **本地数据集与压缩包**：[datasets/liu_yiyi_lora_v1/](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/datasets/liu_yiyi_lora_v1) / [datasets/liu_yiyi_lora_v1.zip](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/datasets/liu_yiyi_lora_v1.zip)（扁平根目录结构，已同步推送至 GitHub 仓库 `datasets/liu_yiyi_lora_v1.zip`）
+- **服装与外貌预设配置**：[datasets/liu_yiyi_lora_v1/outfit_presets.json](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/datasets/liu_yiyi_lora_v1/outfit_presets.json)
+  - **角色触发词与外貌锁（`CHAR_CORE`）**：
+    `liu_yiyi, 1girl, an energetic and cute 19-year-old Chinese girl with a bright expressive face, glossy ink-black hair with soft wispy full bangs and face-framing side locks tied in a high bouncy ponytail`（注：调用柳依依时建议去掉画风前缀中的 `expressive low-set almond eyes`，以充分释放八奈见杏菜式弯月笑眼 `^▽^`、四方露齿笑 `^皿^`、鼓腮帮 `)-(`、十字星星眼 `✦_✦` 与空心圆圈眼 `〇_〇` 等漫画颜艺表现力）
+  - **四套专属极寒外勤 & 避难所室内服装触发词（严格契合零下六七十度极寒末世设定，且头戴/挂颈耳机位置完全解耦）**：
+    1. **`lyy_parka`（【极寒外勤主锚点】纯白重型大毛领防寒远征派克大衣 + 灰色抓绒拉链高领内胆 + 纯黑加厚防寒长裤 + 重型雪地靴 + 纯白猫耳耳机戴在头上）**
+    2. **`lyy_mount`（【极寒外勤登山装】深灰羊羔绒翻领/袖口重型登山大衣 + 厚白针织围巾 + 白色粗棒针麻花毛衣 + 纯黑加厚防寒长裤 + 系带雪地靴 + 纯白猫耳耳机戴在头上）**
+    3. **`lyy_hoodie`（【避难所居家电竞装】深灰羊羔绒拉链连帽卫衣外套 + 纯白竖罗纹高领毛衣 + 深色百褶短裙 + 纯黑厚保暖连裤袜 + 纯白猫耳耳机挂在脖子上 `resting around her neck`）**
+    4. **`lyy_suspender`（【避难所室内修身装】修身纯白竖罗纹高领针织毛衣 + 中灰高腰百褶背带裙 + 纯黑厚保暖连裤袜 + 室内毛绒短靴 + 纯白猫耳耳机戴在头上）**
+  - **三视图与八奈见漫画分镜触发词**：
+    - **`lyy_turnaround`**：正+侧+背全身三视图设定集（4 张）
+    - **`lyy_comic`**：八奈见杏菜风「主立绘 + 旁侧 Q 版颜艺反应头 / 漫画分镜」（4 张；常规单人立绘不加 `lyy_comic` 时 100% 保持纯净 `1girl, solo` 零串扰）
 
 ---
 
@@ -129,7 +135,7 @@ color, polychrome, 3d render, CGI, photorealistic metallic reflection, glossy 3d
 - [README.md](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/README.md) / [AGENTS.md](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/AGENTS.md)：本无缝接管总册。
 - [scripts/colab_instant_gen.py](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/scripts/colab_instant_gen.py)：**核心一键生图与断电控制脚本**（默认锁定 `H100`，已升级原生 `setRuntime` API 与 `start_new_session=True` 后台守护）。
 - [scripts/resident_engine.py](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/scripts/resident_engine.py)：**云端显存常驻秒出 + 闲置自动断电引擎**（支持 `lora_name:weight` 动态权重解析、多角色触发词自动映射与 `sys.last_traceback = None` 显存彻底释放）。
-- [scripts/train_su_qingge_lora.py](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/scripts/train_su_qingge_lora.py) / [scripts/train_he_lingyi_lora.py](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/scripts/train_he_lingyi_lora.py) / [scripts/train_jiang_nan_lora.py](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/scripts/train_jiang_nan_lora.py)：**角色 LoRA（`Krea-2-Raw` 1000 步）NVMe 直训与 8 图多维解耦自动验收脚本**（内置 `gc.get_objects()` 父进程 CUDA 显存彻底清零机制，防止 40GB A100 子进程 OOM）。
+- [scripts/train_su_qingge_lora.py](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/scripts/train_su_qingge_lora.py) / [scripts/train_he_lingyi_lora.py](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/scripts/train_he_lingyi_lora.py) / [scripts/train_jiang_nan_lora.py](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/scripts/train_jiang_nan_lora.py) / [scripts/train_liu_yiyi_lora.py](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/scripts/train_liu_yiyi_lora.py)：**角色 LoRA（`Krea-2-Raw` 1000 步）NVMe 直训与 8 图多维解耦自动验收脚本**（内置 `gc.get_objects()` 父进程 CUDA 显存彻底清零机制，防止 40GB A100 子进程 OOM）。
 - [datasets/su_qingge_lora_v2/](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/datasets/su_qingge_lora_v2)：**苏清歌 `su_qingge_lora_v2` 36 张六维解耦训练集与 `outfit_presets.json`**。
 - [datasets/he_lingyi_lora_v1/](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/datasets/he_lingyi_lora_v1)：**贺令仪 `he_lingyi_lora_v1` 36 张六维解耦训练集与 `outfit_presets.json`**。
 - [datasets/jiang_nan_lora_v1/](file:///Users/zhangshuai/2/%E7%94%9F%E5%9B%BE/datasets/jiang_nan_lora_v1)：**姜楠 `jiang_nan_lora_v1` 36 张六维解耦训练集与 `outfit_presets.json`**。
